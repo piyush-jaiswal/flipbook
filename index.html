@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Flipbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/bookblock.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="flipbook-row">
+            <div class="col-8 mx-auto" id="flipbook">
+                <div id="bb-bookblock" class="bb-bookblock">
+
+                    <div class="bb-item">
+                        <figure class="d-flex align-items-center">
+                            <img class="mx-auto d-block" src="images/giphy.gif" alt="image01"/>
+                        </figure>
+                    </div>
+
+                    <div class="bb-item">
+                        <figure class="d-flex align-items-center">
+                            <img class="mx-auto d-block" src="images/2.jpg" alt="image02"/>
+                        </figure>
+                    </div>
+
+                    <div class="bb-item">
+                        <figure class="d-flex align-items-center">
+                            <img class="mx-auto d-block" src="images/giphy.webp" alt="image03"/>
+                        </figure>
+                    </div>
+
+                    <div class="bb-item">
+                        <figure class="d-flex align-items-center">
+                            <img class="mx-auto d-block" src="images/4.jpg" alt="image04"/>
+                        </figure>
+                    </div>
+
+                    <div class="bb-item">
+                        <figure class="d-flex align-items-center">
+                            <img class="mx-auto d-block" src="images/5.jpg" alt="image05"/>
+                        </figure>
+                    </div>
+
+                </div><!-- bb-bookblock -->
+            </div><!-- flipbook -->
+        </div><!-- flipbook row -->
+    </div><!-- container-fluid -->
+
+    <nav class="navbar navbar-expand justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a id="bb-nav-first" href="#" class="btn btn-success btn">
+                    <span class="oi oi-media-step-backward"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="bb-nav-prev" href="#" class="btn btn-success btn">
+                    <span class="oi oi-caret-left"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="bb-nav-next" href="#" class="btn btn-success btn">
+                    <span class="oi oi-caret-right"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="bb-nav-last" href="#" class="btn btn-success btn">
+                    <span class="oi oi-media-step-forward"></span>
+                </a>
+            </li>
+        </ul>
+  </nav>
+
+    <script src="js/modernizr.custom.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/jquerypp.custom.js"></script>
+    <script src="js/jquery.bookblock.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
