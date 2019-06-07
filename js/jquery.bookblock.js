@@ -8,6 +8,13 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
+
+ const BOOK_COVER_SLEEP = 500;
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 (function ($, window, undefined) {
 
 	'use strict';
@@ -117,13 +124,37 @@
 		// old is the index of the previous item
 		// page is the current item´s index
 		// isLimit is true if the current page is the last one (or the first one)
-		onEndFlip: function (old, page, isLimit) {
-			return false;
+		onEndFlip: function (old, page, dir, itemsCount, isLimit) {
+
+			// prev direction on book-cover-front
+			if (dir === 'prev' && page === 0) {
+				$("#book-cover-front img").removeClass("book-cover-front-translate");
+				return sleep(BOOK_COVER_SLEEP);
+			}
+			else if (dir === 'next' && page === itemsCount - 1) {
+				$("#book-cover-back img").addClass("book-cover-back-translate");
+				return sleep(BOOK_COVER_SLEEP);
+			}
+			else {
+				return sleep(0);
+			}
 		},
 		// callback before the flip transition
 		// page is the current item´s index
-		onBeforeFlip: function (page) {
-			return false;
+		onBeforeFlip: function (page, dir, itemsCount) {
+
+			// FIXME: Bad hack, look for a better way. This animation will nt work without this hack, because of .bb-back animations.
+			if (dir === "next" && page === 0) {
+				$("#book-cover-front img").addClass("book-cover-front-translate");
+				return sleep(BOOK_COVER_SLEEP);
+			}
+			else if (dir === "prev" && page === itemsCount - 1) {
+				$("#book-cover-back img").removeClass("book-cover-back-translate");
+				return sleep(BOOK_COVER_SLEEP);
+			}
+			else {
+				return sleep(0);
+			}
 		}
 	};
 
@@ -197,14 +228,14 @@
 			this._stopSlideshow();
 			this._navigate(dir, page);
 		},
-		_navigate: function (dir, page) {
+		_navigate: async function (dir, page) {
 
 			if (this.isAnimating) {
 				return false;
 			}
 
 			// callback trigger
-			this.options.onBeforeFlip(this.current);
+			await this.options.onBeforeFlip(this.current, dir, this.itemsCount);
 
 			this.isAnimating = true;
 			// update current value
@@ -244,7 +275,7 @@
 			this.isAnimating = false;
 			var isLimit = dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
 			// callback trigger
-			this.options.onEndFlip(this.previous, this.current, isLimit);
+			this.options.onEndFlip(this.previous, this.current, dir, this.itemsCount, isLimit);
 		},
 		// creates the necessary layout for the 3d structure
 		_layout: function (dir) {
@@ -263,22 +294,21 @@
 				$o_right = $s_right.find('div.bb-overlay'),
 				speed = this.end ? 400 : this.options.speed;
 
-			this.$items.hide();
-			this.$el.prepend($s_left, $s_middle, $s_right);
+				this.$items.hide();
+				this.$el.prepend($s_left, $s_middle, $s_right);
 
 			$s_middle.css({
 				transitionDuration: speed + 'ms',
 				transitionTimingFunction: this.options.easing
-			}).on(this.transEndEventName, function (event) {
+			}).on(this.transEndEventName, async function (event) {
 				if ($(event.target).hasClass('bb-page')) {
-					self.$el.children('.bb-page').remove();
 					self.$nextItem.show();
 					self.end = false;
 					self.isAnimating = false;
-					
 					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 					// callback trigger
-					self.options.onEndFlip(self.previous, self.current, isLimit);
+					await self.options.onEndFlip(self.previous, self.current, dir, self.itemsCount, isLimit);
+					self.$el.children('.bb-page').remove();
 				}
 			});
 
