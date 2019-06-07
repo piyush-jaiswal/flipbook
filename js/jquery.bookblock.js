@@ -275,6 +275,7 @@
 					self.$nextItem.show();
 					self.end = false;
 					self.isAnimating = false;
+					
 					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 					// callback trigger
 					self.options.onEndFlip(self.previous, self.current, isLimit);
@@ -530,7 +531,5 @@
 		}
 		return this;
 	};
-
-	console.log($('.bb-horizontal .bb-page'));
 
 })(jQuery, window);

@@ -8,12 +8,13 @@ body {
     padding: 0;
     height: 25em;
     background: #f6f6f6;
+    transition: max-width 1s;
+    /* max-width: 50%; */
 }
 
 #flipbook .bb-bookblock,
 #flipbook .bb-item,
-#flipbook figure,
-#flipbook figure img {
+#flipbook figure {
     height: 100%;
     width: 100%;
 }
@@ -22,7 +23,9 @@ body {
     margin-top: 4em;
 }
 
-img {
+#flipbook figure img {
+    height: 100%;
+    width: 100%;
     padding: 0.2em;
     box-sizing: border-box;
 }
@@ -34,4 +37,14 @@ img {
 nav li {
     margin: 0.2em;
     margin-top: 1em;
+}
+
+#flipbook .book-cover img {
+    padding: 0;
+    width: 50%;
+}
+
+#flipbook .book-cover-open {
+    position: absolute;
+    left: 50%;
 }
