@@ -9,10 +9,14 @@
  * http://www.codrops.com
  */
 
- const BOOK_COVER_SLEEP = 500;
-
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+function transitionToPromise($el) {
+	return new Promise(resolve => {
+		const transitionEnded = e => {
+		  $el.off(transEndEventName, transitionEnded);
+		  resolve();
+		}
+		$el.on(transEndEventName, transitionEnded);
+	});
 }
 
 (function ($, window, undefined) {
@@ -128,32 +132,36 @@ function sleep(ms) {
 
 			// prev direction on book-cover-front
 			if (dir === 'prev' && page === 0) {
-				$("#book-cover-front img").removeClass("book-cover-front-translate");
-				return sleep(BOOK_COVER_SLEEP);
+				let $elem = $("#book-cover-front img");
+				$elem.removeClass("book-cover-front-translate");
+				return transitionToPromise($elem);
 			}
 			else if (dir === 'next' && page === itemsCount - 1) {
-				$("#book-cover-back img").addClass("book-cover-back-translate");
-				return sleep(BOOK_COVER_SLEEP);
+				let $elem = $("#book-cover-back img");
+				$elem.addClass("book-cover-back-translate");
+				return transitionToPromise($elem);
 			}
 			else {
-				return sleep(0);
+				return Promise.resolve();
 			}
 		},
 		// callback before the flip transition
 		// page is the current item´s index
 		onBeforeFlip: function (page, dir, itemsCount) {
 
-			// FIXME: Bad hack, look for a better way. This animation will nt work without this hack, because of .bb-back animations.
+			// FIXME: Hack, look for a better way. This animation will not work without this, because of .bb-back animations.
 			if (dir === "next" && page === 0) {
-				$("#book-cover-front img").addClass("book-cover-front-translate");
-				return sleep(BOOK_COVER_SLEEP);
+				let $elem = $("#book-cover-front img");
+				$elem.addClass("book-cover-front-translate");
+				return transitionToPromise($elem);
 			}
 			else if (dir === "prev" && page === itemsCount - 1) {
-				$("#book-cover-back img").removeClass("book-cover-back-translate");
-				return sleep(BOOK_COVER_SLEEP);
+				let $elem = $("#book-cover-back img");
+				$elem.removeClass("book-cover-back-translate");
+				return transitionToPromise($elem);
 			}
 			else {
-				return sleep(0);
+				return Promise.resolve();
 			}
 		}
 	};
@@ -189,6 +197,7 @@ function sleep(ms) {
 				'msTransition': 'MSTransitionEnd',
 				'transition': 'transitionend'
 			};
+			window.transEndEventName = transEndEventNames[Modernizr.prefixed('transition')];
 			this.transEndEventName = transEndEventNames[Modernizr.prefixed('transition')] + '.bookblock';
 			// support css 3d transforms && css transitions && Modernizr.csstransformspreserve3d
 			this.support = Modernizr.csstransitions && Modernizr.csstransforms3d && Modernizr.csstransformspreserve3d;
@@ -228,14 +237,14 @@ function sleep(ms) {
 			this._stopSlideshow();
 			this._navigate(dir, page);
 		},
-		_navigate: async function (dir, page) {
+		_navigate: function (dir, page) {
 
 			if (this.isAnimating) {
 				return false;
 			}
 
 			// callback trigger
-			await this.options.onBeforeFlip(this.current, dir, this.itemsCount);
+			let beforeFlipPromise = this.options.onBeforeFlip(this.current, dir, this.itemsCount);
 
 			this.isAnimating = true;
 			// update current value
@@ -261,12 +270,14 @@ function sleep(ms) {
 
 			this.$nextItem = !this.options.circular && this.end ? this.$current : this.$items.eq(this.current);
 
-			if (!this.support) {
-				this._layoutNoSupport(dir);
-			} else {
-				this._layout(dir);
-			}
-
+			var self = this;
+			beforeFlipPromise.then(() => {
+				if (!self.support) {
+					self._layoutNoSupport(dir);
+				} else {
+					self._layout(dir);
+				}
+			});
 		},
 		_layoutNoSupport: function (dir) {
 			this.$items.hide();
@@ -307,8 +318,10 @@ function sleep(ms) {
 					self.isAnimating = false;
 					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 					// callback trigger
-					await self.options.onEndFlip(self.previous, self.current, dir, self.itemsCount, isLimit);
-					self.$el.children('.bb-page').remove();
+					let endFlipPromise = self.options.onEndFlip(self.previous, self.current, dir, self.itemsCount, isLimit);
+					endFlipPromise.then(() => {
+						self.$el.children('.bb-page').remove();
+					});
 				}
 			});
 
