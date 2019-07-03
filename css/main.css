@@ -6,7 +6,8 @@ body {
 
 #flipbook {
     padding: 0;
-    height: 25em;
+    height: 30em;
+    /* height: 60vh; */
     background: #f6f6f6;
     transition: transform 1s;
 }

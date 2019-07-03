@@ -6,8 +6,8 @@
 	z-index: 100;
 
 	/* change em to vh if not responsive */
-	-webkit-perspective: 65em;
-	perspective: 65em;
+	-webkit-perspective: 120em;
+	perspective: 120em;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
