@@ -143,13 +143,13 @@
 } */
 
 .bb-vertical .bb-flip-next-end {
-	-webkit-transform: rotateY(-15deg);
-	transform: rotateY(-15deg);
+	-webkit-transform: rotateY(-5deg);
+	transform: rotateY(-5deg);
 }
 
 .bb-vertical .bb-flip-prev-end {
-	-webkit-transform: rotateY(-165deg);
-	transform: rotateY(-165deg);
+	-webkit-transform: rotateY(-175deg);
+	transform: rotateY(-175deg);
 }
 
 /* .bb-horizontal .bb-flip-next-end {
