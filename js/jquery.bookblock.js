@@ -128,15 +128,15 @@ function transitionToPromise($el) {
 		// old is the index of the previous item
 		// page is the current item´s index
 		// isLimit is true if the current page is the last one (or the first one)
-		onEndFlip: function (old, page, dir, itemsCount, isLimit) {
+		onEndFlip: function (isEnd, page, dir, itemsCount) {
 
 			// prev direction on book-cover-front
-			if (dir === 'prev' && page === 0) {
+			if (!isEnd && dir === 'prev' && page === 0) {
 				let $elem = $("#book-cover-front img");
 				$elem.removeClass("book-cover-front-translate");
 				return transitionToPromise($elem);
 			}
-			else if (dir === 'next' && page === itemsCount - 1) {
+			else if (!isEnd && dir === 'next' && page === itemsCount - 1) {
 				let $elem = $("#book-cover-back img");
 				$elem.addClass("book-cover-back-translate");
 				return transitionToPromise($elem);
@@ -314,14 +314,14 @@ function transitionToPromise($el) {
 			}).on(this.transEndEventName, async function (event) {
 				if ($(event.target).hasClass('bb-page')) {
 					self.$nextItem.show();
-					self.end = false;
-					self.isAnimating = false;
-					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
+
 					// callback trigger
-					let endFlipPromise = self.options.onEndFlip(self.previous, self.current, dir, self.itemsCount, isLimit);
+					let endFlipPromise = self.options.onEndFlip(self.end, self.current, dir, self.itemsCount);
 					endFlipPromise.then(() => {
 						self.$el.children('.bb-page').remove();
 					});
+					self.end = false;
+					self.isAnimating = false;
 				}
 			});
 
