@@ -9,16 +9,6 @@
  * http://www.codrops.com
  */
 
-function transitionToPromise($el) {
-	return new Promise(resolve => {
-		const transitionEnded = e => {
-		  $el.off(transEndEventName, transitionEnded);
-		  resolve();
-		}
-		$el.on(transEndEventName, transitionEnded);
-	});
-}
-
 (function ($, window, undefined) {
 
 	'use strict';
@@ -128,41 +118,13 @@ function transitionToPromise($el) {
 		// old is the index of the previous item
 		// page is the current item´s index
 		// isLimit is true if the current page is the last one (or the first one)
-		onEndFlip: function (isEnd, page, dir, itemsCount) {
-
-			// prev direction on book-cover-front
-			if (!isEnd && dir === 'prev' && page === 0) {
-				let $elem = $("#book-cover-front img");
-				$elem.removeClass("book-cover-front-translate");
-				return transitionToPromise($elem);
-			}
-			else if (!isEnd && dir === 'next' && page === itemsCount - 1) {
-				let $elem = $("#book-cover-back img");
-				$elem.addClass("book-cover-back-translate");
-				return transitionToPromise($elem);
-			}
-			else {
-				return Promise.resolve();
-			}
+		onEndFlip: function (old, page, isLimit) {
+			return false;
 		},
 		// callback before the flip transition
 		// page is the current item´s index
-		onBeforeFlip: function (page, dir, itemsCount) {
-
-			// FIXME: Hack, look for a better way. This animation will not work without this, because of .bb-back animations.
-			if (dir === "next" && page === 0) {
-				let $elem = $("#book-cover-front img");
-				$elem.addClass("book-cover-front-translate");
-				return transitionToPromise($elem);
-			}
-			else if (dir === "prev" && page === itemsCount - 1) {
-				let $elem = $("#book-cover-back img");
-				$elem.removeClass("book-cover-back-translate");
-				return transitionToPromise($elem);
-			}
-			else {
-				return Promise.resolve();
-			}
+		onBeforeFlip: function (page) {
+			return false;
 		}
 	};
 
@@ -197,7 +159,6 @@ function transitionToPromise($el) {
 				'msTransition': 'MSTransitionEnd',
 				'transition': 'transitionend'
 			};
-			window.transEndEventName = transEndEventNames[Modernizr.prefixed('transition')];
 			this.transEndEventName = transEndEventNames[Modernizr.prefixed('transition')] + '.bookblock';
 			// support css 3d transforms && css transitions && Modernizr.csstransformspreserve3d
 			this.support = Modernizr.csstransitions && Modernizr.csstransforms3d && Modernizr.csstransformspreserve3d;
@@ -243,9 +204,7 @@ function transitionToPromise($el) {
 				return false;
 			}
 
-			// callback trigger
-			let beforeFlipPromise = this.options.onBeforeFlip(this.current, dir, this.itemsCount);
-
+			let frontCoverPromise = this._moveFrontCover(this.current, dir, this.itemsCount);
 			this.isAnimating = true;
 			// update current value
 			this.$current = this.$items.eq(this.current);
@@ -271,7 +230,10 @@ function transitionToPromise($el) {
 			this.$nextItem = !this.options.circular && this.end ? this.$current : this.$items.eq(this.current);
 
 			var self = this;
-			beforeFlipPromise.then(() => {
+			frontCoverPromise.then(() => {
+			// callback trigger
+			this.options.onBeforeFlip(this.current);
+
 				if (!self.support) {
 					self._layoutNoSupport(dir);
 				} else {
@@ -311,13 +273,15 @@ function transitionToPromise($el) {
 			$s_middle.css({
 				transitionDuration: speed + 'ms',
 				transitionTimingFunction: this.options.easing
-			}).on(this.transEndEventName, async function (event) {
+			}).on(this.transEndEventName, function (event) {
 				if ($(event.target).hasClass('bb-page')) {
 					self.$nextItem.show();
-
+					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 					// callback trigger
-					let endFlipPromise = self.options.onEndFlip(self.end, self.current, dir, self.itemsCount);
-					endFlipPromise.then(() => {
+					self.options.onEndFlip(self.previous, self.current, isLimit);
+
+					let backCoverPromise = self._moveBackCover(self.end, self.current, dir, self.itemsCount);
+					backCoverPromise.then(() => {
 						self.$el.children('.bb-page').remove();
 					});
 					self.end = false;
@@ -474,6 +438,46 @@ function transitionToPromise($el) {
 				clearTimeout(this.slideshow);
 				this.options.autoplay = false;
 			}
+		},
+		_moveFrontCover: function (page, dir, itemsCount) {
+			// This animation will not work without this, because of .bb-back animations.
+			if (dir === "next" && page === 0) {
+				let $elem = $("#book-cover-front > *");
+				$elem.addClass("move-book-cover");
+				return this._transitionToPromise($elem);
+			}
+			else if (dir === "prev" && page === itemsCount - 1) {
+				let $elem = $("#book-cover-back > *");
+				$elem.removeClass("move-book-cover");
+				return this._transitionToPromise($elem);
+			}
+			else {
+				return Promise.resolve();
+			}
+		},
+		_moveBackCover: function (isEnd, page, dir, itemsCount) {
+			if (!isEnd && dir === 'prev' && page === 0) {
+				let $elem = $("#book-cover-front > *");
+				$elem.removeClass("move-book-cover");
+				return this._transitionToPromise($elem);
+			}
+			else if (!isEnd && dir === 'next' && page === itemsCount - 1) {
+				let $elem = $("#book-cover-back > *");
+				$elem.addClass("move-book-cover");
+				return this._transitionToPromise($elem);
+			}
+			else {
+				return Promise.resolve();
+			}
+		},
+		_transitionToPromise: function ($el) {
+			return new Promise(resolve => {
+				const transitionEnded = _ => {
+				  $el.off(this.transEndEventName, transitionEnded);
+				  resolve();
+				}
+				$el.on(this.transEndEventName, transitionEnded);
+			});
 		},
 		// public method: flips next
 		next: function () {

@@ -1,6 +1,6 @@
 .bb-bookblock {
-	/* width: 100%; */
-	/* height: 100%; */
+	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 	position: relative;
 	z-index: 100;
@@ -163,13 +163,23 @@
 } */
 
 .bb-item {
-	/* width: 100%; */
-	/* height: 100%; */
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
 	display: none;
-	background: #fff;
+	background: inherit;
+}
+
+.book-cover > * {
+	padding: 0;
+    width: 50%;
+    transition: transform 0.5s;
+}
+
+.move-book-cover {
+    transform: translate(50%, 0);
 }
 
 /* No JS */

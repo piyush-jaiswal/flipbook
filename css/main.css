@@ -4,11 +4,14 @@ body {
     height: 100%;
 }
 
+.book-cover {
+    background: #E6E6FA;
+}
+
 #flipbook {
     padding: 0;
     height: 30em;
     /* height: 60vh; */
-    background: #f6f6f6;
     transition: transform 1s;
 }
 
@@ -23,7 +26,11 @@ body {
     margin-top: 4em;
 }
 
-#flipbook figure img {
+figure {
+    background: #fff;
+}
+
+figure img {
     height: 100%;
     width: 100%;
     padding: 0.2em;
@@ -39,20 +46,4 @@ nav li {
     margin-top: 1em;
 }
 
-#flipbook .book-cover img {
-    padding: 0;
-    width: 50%;
-    transition: transform 0.5s;
-}
 
-#flipbook .book-cover {
-    background: #E6E6FA;
-}
-
-.book-cover-front-translate {
-    transform: translate(50%, 0);
-}
-
-.book-cover-back-translate {
-    transform: translate(50%, 0);
-}
