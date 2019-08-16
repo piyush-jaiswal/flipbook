@@ -227,6 +227,13 @@
 				}
 			}
 
+			// This removes the slight lifting of book covers
+			if (this.end) {
+				this.isAnimating = false;
+				this.end = false;
+				return;
+			}
+
 			this.$nextItem = !this.options.circular && this.end ? this.$current : this.$items.eq(this.current);
 
 			var self = this;
