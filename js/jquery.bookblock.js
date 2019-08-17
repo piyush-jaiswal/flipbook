@@ -222,7 +222,7 @@
 				return false;
 			}
 
-			var frontCoverPromise = this._moveFrontCover(this.current, dir, this.itemsCount);
+			var frontCoverPromise = this._moveCoverBeforeFlip(this.current, dir, this.itemsCount);
 			this.isAnimating = true;
 			// update current value
 			this.$current = this.$items.eq(this.current);
@@ -302,7 +302,7 @@
 
 				if ($(event.target).hasClass('bb-page')) {
 					self.$nextItem.show();
-					var backCoverPromise = self._moveBackCover(self.end, self.current, dir, self.itemsCount);
+					var backCoverPromise = self._moveCoverAfterFlip(self.end, self.current, dir, self.itemsCount);
 					backCoverPromise.then(() => {
 						self.$el.children('.bb-page').remove();
 						var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
@@ -465,7 +465,7 @@
 				this.options.autoplay = false;
 			}
 		},
-		_moveFrontCover: function (page, dir, itemsCount) {
+		_moveCoverBeforeFlip: function (page, dir, itemsCount) {
 			// This animation will not work without this, because of .bb-back animations.
 			if (dir === "next" && page === 0) {
 				var $elem = $("#book-cover-front > *");
@@ -481,7 +481,7 @@
 				return Promise.resolve();
 			}
 		},
-		_moveBackCover: function (isEnd, page, dir, itemsCount) {
+		_moveCoverAfterFlip: function (isEnd, page, dir, itemsCount) {
 			if (!isEnd && dir === 'prev' && page === 0) {
 				var $elem = $("#book-cover-front > *");
 				$elem.removeClass("move-book-cover");
