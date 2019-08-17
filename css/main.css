@@ -46,4 +46,6 @@ nav li {
     margin-top: 1em;
 }
 
-
+#book-cover-front > video {
+    object-fit: cover;
+}

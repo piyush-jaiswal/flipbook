@@ -84,3 +84,12 @@ $(function() {
     document.getElementById("flipbook").focus();
     Page.init();
 })
+
+function getCurrentFrame(video) {
+    var canvas = document.createElement('canvas');
+    canvas.height = video.videoHeight;
+    canvas.width = video.videoWidth;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg');
+}
