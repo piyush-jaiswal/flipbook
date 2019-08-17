@@ -119,7 +119,7 @@
 		// page is the current item´s index
 		// isLimit is true if the current page is the last one (or the first one)
 		onEndFlip: function (old, page, isLimit) {
-			if (old === 1 && page === 0) {
+			if (page === 0) {
 				let $video = $("#book-cover-front > video");
 				let video = $video[0];
 				$video.attr("autoplay", "true");
@@ -128,8 +128,8 @@
 		},
 		// callback before the flip transition
 		// page is the current item´s index
-		onBeforeFlip: function (dir, page) {
-			if (dir === "next" && page === 1) {
+		onBeforeFlip: function (old, page) {
+			if (page > old && old === 0) {
 				let $video = $("#book-cover-front > video");
 				let video = $video[0];
 				video.pause();
@@ -137,7 +137,7 @@
 				$video.attr("poster", frame_src);
 				$video.removeAttr('autoplay');
 			}
-			else if (dir === "prev" && page === 0) {
+			else if (page < old && page === 0) {
 				let $video = $("#book-cover-front > video");
 				let video = $video[0];
 				video.currentTime = 0;
@@ -228,6 +228,7 @@
 			this.$current = this.$items.eq(this.current);
 
 			if (page !== undefined) {
+				this.previous = this.current;
 				this.current = page;
 			} else if (dir === 'next' && this.options.direction === 'ltr' || dir === 'prev' && this.options.direction === 'rtl') {
 				if (!this.options.circular && this.current === this.itemsCount - 1) {
@@ -257,7 +258,7 @@
 			var self = this;
 			frontCoverPromise.then(() => {
 			// callback trigger
-			this.options.onBeforeFlip(dir, this.current);
+			this.options.onBeforeFlip(this.previous, this.current);
 
 				if (!self.support) {
 					self._layoutNoSupport(dir);
