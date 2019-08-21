@@ -119,30 +119,12 @@
 		// page is the current item´s index
 		// isLimit is true if the current page is the last one (or the first one)
 		onEndFlip: function (old, page, isLimit) {
-			if (page === 0) {
-				let $video = $("#book-cover-front > video");
-				let video = $video[0];
-				$video.attr("autoplay", "true");
-				video.play();
-			}	
+			return false;
 		},
 		// callback before the flip transition
 		// page is the current item´s index
 		onBeforeFlip: function (old, page) {
-			if (page > old && old === 0) {
-				let $video = $("#book-cover-front > video");
-				let video = $video[0];
-				video.pause();
-				let frame_src = getCurrentFrame(video);
-				$video.attr("poster", frame_src);
-				$video.removeAttr('autoplay');
-			}
-			else if (page < old && page === 0) {
-				let $video = $("#book-cover-front > video");
-				let video = $video[0];
-				video.currentTime = 0;
-				$video.removeAttr("poster");
-			}
+			return false;
 		}
 	};
 
@@ -257,9 +239,8 @@
 
 			var self = this;
 			frontCoverPromise.then(() => {
-			// callback trigger
-			this.options.onBeforeFlip(this.previous, this.current);
-
+				// callback trigger
+				this.options.onBeforeFlip(this.previous, this.current);
 				if (!self.support) {
 					self._layoutNoSupport(dir);
 				} else {
@@ -467,7 +448,7 @@
 			}
 		},
 		_moveCoverBeforeFlip: function (page, dir, itemsCount) {
-			// This animation will not work without this, because of .bb-back animations.
+			// Animation does not work without promises, because of .bb-back animations
 			if (dir === "next" && page === 0) {
 				var $elem = $("#book-cover-front > *");
 				$elem.addClass("move-book-cover");

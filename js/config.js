@@ -1,0 +1,12 @@
+CONFIG = {
+    TOTAL_PAGES: 257,
+    IMAGE_PATH: 'images/',
+    ALIVE_PAGES: 9,
+    IMAGE_EXTENSION: '.svg'
+}
+
+BB_CONFIG = {
+    SPEED: 800,
+    SHADOW_SIDES: 0.8,
+    SHADOW_FLIP: 0.7
+}
