@@ -204,7 +204,13 @@
 				return false;
 			}
 
-			var frontCoverPromise = this._moveCoverBeforeFlip(this.current, dir, this.itemsCount);
+			var frontCoverPromise;
+			if (this.support) {
+				frontCoverPromise = this._moveCoverBeforeFlip(this.current, dir, this.itemsCount);
+			} else {
+				frontCoverPromise = Promise.resolve();
+			}
+			
 			this.isAnimating = true;
 			// update current value
 			this.$current = this.$items.eq(this.current);
