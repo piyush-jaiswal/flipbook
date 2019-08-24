@@ -60,7 +60,7 @@ var Page = (function () {
                             img.src = IMAGE_PATH + i + IMAGE_EXTENSION;
                             bbitemImages[i] = img;
                             img.onload = function() {
-                                $item.children('figure').append('<img src=' + img.src + ' alt=' + i + ' />');
+                                $item.children('figure').append('<img class="p-1" src=' + img.src + ' alt=' + i + ' />');
                                 $item.find('span.spinner-border').hide();
                             }
                         }
@@ -101,7 +101,7 @@ var Page = (function () {
                 img.onload = function() {
                     let $item = $($items[i]);
                     $item.find('span.spinner-border').hide();
-                    $item.children('figure').append('<img src=' + img.src + ' alt=' + i + ' />');
+                    $item.children('figure').append('<img class="p-1" src=' + img.src + ' alt=' + i + ' />');
                 }
             }
         },
