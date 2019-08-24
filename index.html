@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/bookblock.css" />
 </head>
@@ -16,7 +15,7 @@
     <div class="container-fluid">
         <div class="row pt-5 no-gutters">
             <div class="col-8 mx-auto my-auto" id="flipbook">
-
+                
                 <div id="bb-bookblock" class="bb-bookblock">
                     <div class="bb-item">
                         <figure class="book-cover" id="book-cover-front">
@@ -29,36 +28,20 @@
                             <img src="images/dijkstra_back_cover2.png" alt="image05"/>
                         </figure>
                     </div>
-
                 </div><!-- bb-bookblock -->
-            </div><!-- flipbook -->
-        </div><!-- flipbook row -->
-    </div><!-- container-fluid -->
 
-    <nav class="navbar navbar-expand justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a id="bb-nav-first" href="#" class="btn btn-success btn">
-                    <span class="oi oi-media-step-backward"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="bb-nav-prev" href="#" class="btn btn-success btn">
-                    <span class="oi oi-caret-left"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="bb-nav-next" href="#" class="btn btn-success btn">
-                    <span class="oi oi-caret-right"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="bb-nav-last" href="#" class="btn btn-success btn">
-                    <span class="oi oi-media-step-forward"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                <div id="nav-wrapper" class="mx-auto">
+                    <nav>
+                        <img id="bb-nav-first" class="d-block" src="images/first.svg" alt="first" />
+                        <img id="bb-nav-prev" class="d-block" src="images/prev.svg" alt="next" />
+                        <img id="bb-nav-next" class="d-block" src="images/next.svg" alt="prev" />
+                        <img id="bb-nav-last" class="d-block" src="images/last.svg" alt="last" />
+                    </nav>
+                </div><!-- nav-wrapper -->
+                
+            </div><!-- flipbook -->
+        </div><!-- row -->
+    </div><!-- container-fluid -->
 
     <script src="js/modernizr.custom.js"></script>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

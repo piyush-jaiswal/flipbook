@@ -1,11 +1,13 @@
-body {
-    font-family: 'Lato', Calibri, Arial, sans-serif;
-    background: #E6E6FA;
-    height: 100%;
-}
-
+body,
 .book-cover {
     background: #E6E6FA;
+}
+
+html, 
+body, 
+.container-fluid, 
+.row  {
+    height: 100%;
 }
 
 /* maintain aspect ratio on resizing 
@@ -16,37 +18,36 @@ https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-w
     padding-bottom: 56.25%;
 }
 
-#flipbook .bb-bookblock,
-#flipbook .bb-item,
-#flipbook figure {
+figure, 
+figure img {
     height: 100%;
     width: 100%;
-}
-
-#flipbook-row {
-    margin-top: 4em;
 }
 
 figure {
     background: #fff;
 }
 
-figure img {
-    height: 100%;
+#nav-wrapper {
+    width: 25%;
+    padding-bottom: 13%;
+    position: relative;
+}
+
+nav {
+    position: absolute;
     width: 100%;
-    padding: 0.2em;
-    box-sizing: border-box;
+    height: 100%;
 }
 
-/* .bb-bookblock {
-    box-shadow: 1em 1em 1.4em -0.4em rgba(81, 64, 49, 0.6);
-} */
-
-nav li {
-    margin: 0.2em;
-    margin-top: 1em;
+nav img {
+    width: 25%;
+    height: 100%;
+    float: left;
+    padding: 0 0 3% 3%;
 }
 
-#book-cover-front > video {
-    object-fit: cover;
+nav img:hover {
+    cursor: pointer;
+    opacity: 0.8;
 }
