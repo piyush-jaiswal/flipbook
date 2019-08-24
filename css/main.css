@@ -8,11 +8,12 @@ body {
     background: #E6E6FA;
 }
 
-#flipbook {
-    padding: 0;
-    height: 30em;
-    /* height: 60vh; */
-    transition: transform 1s;
+/* maintain aspect ratio on resizing 
+https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css*/
+#flipbook .bb-bookblock {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
 }
 
 #flipbook .bb-bookblock,
