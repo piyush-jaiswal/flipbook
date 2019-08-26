@@ -188,13 +188,18 @@ var Page = (function () {
                         down: 40
                     };
 
-                switch (keyCode) {
-                    case arrow.left:
-                        navigate('prev');
-                        break;
-                    case arrow.right:
-                        navigate('next');
-                        break;
+                // 0-9 only
+                if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                    if (document.activeElement != config.$currentPage[0]) {
+                        config.$currentPage.val('');
+                        config.$currentPage.focus();
+                    }
+                }
+                else if (keyCode === arrow.left) {
+                    navigate('prev');
+                }
+                else if (keyCode === arrow.right) {
+                    navigate('next');
                 }
             });
 
