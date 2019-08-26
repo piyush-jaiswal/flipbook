@@ -196,10 +196,14 @@ var Page = (function () {
                     }
                 }
                 else if (keyCode === arrow.left) {
-                    navigate('prev');
+                    if (document.activeElement != config.$currentPage[0]) {
+                        navigate('prev');
+                    }
                 }
                 else if (keyCode === arrow.right) {
-                    navigate('next');
+                    if (document.activeElement != config.$currentPage[0]) {
+                        navigate('next');
+                    }
                 }
             });
 
