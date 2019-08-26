@@ -19,7 +19,9 @@ var Page = (function () {
             $currentPage: $('#current-page')
         },
         init = function () {
-            var bbitems = Array.from({length: TOTAL_PAGES}, () => '<div class="bb-item"><figure class="d-flex"><span class="spinner-border text-primary mx-auto my-auto"></span></figure></div>');
+            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            var sizeClass = width <= 768 ? 'spinner-border-sm' : '';
+            var bbitems = Array.from({length: TOTAL_PAGES}, () => '<div class="bb-item"><figure class="d-flex"><span class="spinner-border ' +  sizeClass + ' text-primary mx-auto my-auto"></span></figure></div>');
             $('#book-cover-front').closest('.bb-item').after(bbitems);
             intializePageCounter();
             loadInitialImages();
