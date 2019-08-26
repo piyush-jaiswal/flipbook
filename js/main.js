@@ -14,14 +14,17 @@ var Page = (function () {
             $navNext: $('#bb-nav-next'),
             $navPrev: $('#bb-nav-prev'),
             $navFirst: $('#bb-nav-first'),
-            $navLast: $('#bb-nav-last')
+            $navLast: $('#bb-nav-last'),
+            $totalCount: $('#total-count'),
+            $currentPage: $('#current-page')
         },
         init = function () {
             var bbitems = Array.from({length: TOTAL_PAGES}, () => '<div class="bb-item"><figure class="d-flex"><span class="spinner-border text-primary mx-auto my-auto"></span></figure></div>');
             $('#book-cover-front').closest('.bb-item').after(bbitems);
+            intializePageCounter();
             loadInitialImages();
             
-            config.$bookBlock.bookblock({
+            var bookblock = config.$bookBlock.bookblock({
                 speed: BB_SPEED,
                 shadowSides: BB_SHADOW_SIDES,
                 shadowFlip: BB_SHADOW_FLIP,
@@ -91,7 +94,7 @@ var Page = (function () {
                     }
                 }
             });
-            initEvents();
+            initEvents(bookblock);
         },
         loadInitialImages = function () {
             var $items = config.$bookBlock.children('.bb-item');
@@ -105,38 +108,70 @@ var Page = (function () {
                 }
             }
         },
-        initEvents = function () {
+        intializePageCounter = function () {
+            config.$totalCount.html(TOTAL_PAGES + 1);
+        },
+        initEvents = function (bookblock) {
+            function navigate (action, ...args) {
+                // FIXME: Plugin doesn't return boolean value on calling "config.$bookBlock.bookblock('isActive')"
+                var instance = $.data(bookblock[0], 'bookblock');
+                if (instance.isActive()) {
+                    return false;
+                }
+                
+                config.$bookBlock.bookblock(action, ...args);
+                var currentPage = parseInt(config.$currentPage.attr('value'));
+                switch (action) {
+                    case 'next':
+                        currentPage = Math.min(TOTAL_PAGES + 1, currentPage + 1);
+                        break;
+                    case 'prev':
+                        currentPage = Math.max(0, currentPage - 1);
+                        break;
+                    case 'first':
+                        currentPage = 0;
+                        break;
+                    case 'last':
+                        currentPage = TOTAL_PAGES + 1;
+                        break;
+                    case 'jump':
+                        currentPage = config.$currentPage.val();
+                        break;
+                }
+                config.$currentPage.attr('value', currentPage);
+                config.$currentPage.val(currentPage);
+            }
             var $slides = config.$bookBlock.children();
 
             // add navigation events
             config.$navNext.on('click touchstart', function () {
-                config.$bookBlock.bookblock('next');
+                navigate('next');
                 return false;
             });
 
             config.$navPrev.on('click touchstart', function () {
-                config.$bookBlock.bookblock('prev');
+                navigate('prev');
                 return false;
             });
 
             config.$navFirst.on('click touchstart', function () {
-                config.$bookBlock.bookblock('first');
+                navigate('first');
                 return false;
             });
 
             config.$navLast.on('click touchstart', function () {
-                config.$bookBlock.bookblock('last');
+                navigate('last');
                 return false;
             });
 
             // add swipe events
             $slides.on({
                 'swipeleft': function (event) {
-                    config.$bookBlock.bookblock('next');
+                    navigate('next');
                     return false;
                 },
                 'swiperight': function (event) {
-                    config.$bookBlock.bookblock('prev');
+                    navigate('prev');
                     return false;
                 }
             });
@@ -153,11 +188,21 @@ var Page = (function () {
 
                 switch (keyCode) {
                     case arrow.left:
-                        config.$bookBlock.bookblock('prev');
+                        navigate('prev');
                         break;
                     case arrow.right:
-                        config.$bookBlock.bookblock('next');
+                        navigate('next');
                         break;
+                }
+            });
+
+            config.$currentPage.keydown(function (e) {
+                // if the pressed key is "Enter"
+                if (e.keyCode === 13) {
+                    let val = parseInt(e.target.value);
+                    if (val >= 0 && val <= TOTAL_PAGES + 1) {
+                        navigate('jump', val + 1);
+                    }
                 }
             });
         };

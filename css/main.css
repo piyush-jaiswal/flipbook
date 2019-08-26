@@ -18,7 +18,7 @@ https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-w
     padding-bottom: 56.25%;
 }
 
-figure, 
+figure,
 figure img {
     height: 100%;
     width: 100%;
@@ -29,22 +29,52 @@ figure {
 }
 
 #nav-wrapper {
-    width: 25%;
-    padding-bottom: 13%;
+    width: 35%;
+    padding-bottom: 5%;
     position: relative;
+    margin-top: 5%;
+}
+
+#nav-wrapper,
+nav,
+#page-counter,
+#total-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 nav {
     position: absolute;
-    width: 100%;
+    width: 120%;
+    height: 100%;
+}
+
+#page-counter {
+    width: 36%;
+    height: 100%;
+    margin: 0 1%;
+}
+
+#page-counter input {
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    font-size: 1.3vw;
+}
+
+#total-count {
+    background-color: #e7e7e7;
+    border: solid black 1%;
+    color: black;
+    font-size: 1.3vw;
+    width: 50%;
     height: 100%;
 }
 
 nav img {
-    width: 25%;
+    width: 16%;
     height: 100%;
-    float: left;
-    padding: 0 0 3% 3%;
 }
 
 nav img:hover {
