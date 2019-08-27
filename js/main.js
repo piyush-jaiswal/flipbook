@@ -213,6 +213,7 @@ var Page = (function () {
                     let val = parseInt(e.target.value);
                     if (val >= 0 && val <= TOTAL_PAGES + 1) {
                         navigate('jump', val + 1);
+                        this.blur();
                     }
                 }
             });
