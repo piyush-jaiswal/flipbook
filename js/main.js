@@ -3,10 +3,6 @@ const IMAGE_PATH = CONFIG['IMAGE_PATH'];
 const ALIVE_PAGES = CONFIG['ALIVE_PAGES'];
 const IMAGE_EXTENSION = CONFIG['IMAGE_EXTENSION'];
 
-const BB_SPEED = BB_CONFIG['SPEED'];
-const BB_SHADOW_SIDES = BB_CONFIG['SHADOW_SIDES'];
-const BB_SHADOW_FLIP = BB_CONFIG['SHADOW_FLIP'];
-
 
 var Page = (function () {
     var config = {
@@ -26,10 +22,7 @@ var Page = (function () {
             intializePageCounter();
             loadInitialImages();
             
-            var bookblock = config.$bookBlock.bookblock({
-                speed: BB_SPEED,
-                shadowSides: BB_SHADOW_SIDES,
-                shadowFlip: BB_SHADOW_FLIP,
+            var bbConfig = $.extend({}, BB_CONFIG, {
                 onEndFlip: (function () {
                     var bbitemImages = {};
                     var $bbitems = $('#bb-bookblock').children('.bb-item');
@@ -96,6 +89,7 @@ var Page = (function () {
                     }
                 }
             });
+            var bookblock = config.$bookBlock.bookblock(bbConfig);
             initEvents(bookblock);
         },
         loadInitialImages = function () {

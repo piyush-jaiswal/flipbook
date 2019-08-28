@@ -6,7 +6,7 @@ CONFIG = {
 }
 
 BB_CONFIG = {
-    SPEED: 800,
-    SHADOW_SIDES: 0.8,
-    SHADOW_FLIP: 0.7
+    speed: 800,
+    shadowsSides: 0.8,
+    shadowFlip: 0.7
 }
