@@ -1,5 +1,5 @@
 CONFIG = {
-    TOTAL_PAGES: 257,
+    TOTAL_PAGES: 258,
     IMAGE_PATH: 'images/',
     ALIVE_PAGES: 9,
     IMAGE_EXTENSION: '.svg'
