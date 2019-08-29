@@ -19,13 +19,17 @@
                 <div id="bb-bookblock" class="bb-bookblock">
                     <div class="bb-item">
                         <figure class="book-cover" id="book-cover-front">
-                            <video class="mx-auto d-block" src="images/front-cover.mp4" autoplay muted loop playsinline>Your browswer does not support HTML5 video.</video>
+                            <video class="mx-auto d-block" autoplay muted loop playsinline>
+                                <source src="images/front_cover.webm" type="video/webm">
+                                <source src="images/front_cover.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
                         </figure>
                     </div>
 
                     <div class="bb-item">
                         <figure class="book-cover" id="book-cover-back">
-                            <img src="images/dijkstra_back_cover2.png" alt="image05"/>
+                            <img src="images/dijkstra_back_cover.svg" alt="image05"/>
                         </figure>
                     </div>
                 </div><!-- bb-bookblock -->
