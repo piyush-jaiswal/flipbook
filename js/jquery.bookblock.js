@@ -296,11 +296,10 @@
 						var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 						// callback trigger
 						self.options.onEndFlip(self.previous, self.current, isLimit);
+						self.end = false;
+						self.isAnimating = false;
 					});
-					self.end = false;
-					self.isAnimating = false;
 				}
-
 			});
 
 			if (dir === 'prev') {

@@ -22,7 +22,7 @@ var Page = (function () {
             intializePageCounter();
             loadInitialImages();
             
-            var bbConfig = $.extend({}, BB_CONFIG, {
+            var bookblock = config.$bookBlock.bookblock($.extend({}, BB_CONFIG, {
                 onEndFlip: (function () {
                     var bbitemImages = {};
                     var $bbitems = $('#bb-bookblock').children('.bb-item');
@@ -88,8 +88,7 @@ var Page = (function () {
                         $video.removeAttr('poster');
                     }
                 }
-            });
-            var bookblock = config.$bookBlock.bookblock(bbConfig);
+            }));
             initEvents(bookblock);
         },
         loadInitialImages = function () {
