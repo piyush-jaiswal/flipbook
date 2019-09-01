@@ -92,7 +92,11 @@ nav img {
 
 nav img:hover {
     cursor: pointer;
-    opacity: 0.8;
+    transform: scale(1.3, 1.3);
+}
+
+#page-counter:hover {
+    transform: scale(1.1, 1.2);
 }
 
 address {
@@ -108,11 +112,15 @@ address img {
 address a {
     width: 30%;
     padding-bottom: 30%;
-    margin-top: 13%;
+    margin-top: 18%;
     position: relative;
     display: block;
 }
 
 address a:first-child {
     margin-top: 6%;
+}
+
+address a:hover {
+    transform: scale(1.7, 1.7);
 }
