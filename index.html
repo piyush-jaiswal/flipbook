@@ -16,40 +16,59 @@
     <main class="container-fluid px-0">
         <div class="row no-gutters">
             <div class="col-12 mx-auto my-auto" id="flipbook-wrapper">
-                <div class="col-8 pb-3 mx-auto my-auto" id="flipbook">
-                    
-                    <div id="bb-bookblock" class="bb-bookblock">
-                        <div class="bb-item">
-                            <figure class="book-cover" id="book-cover-front">
-                                <video class="mx-auto d-block" autoplay muted loop playsinline>
-                                    <source src="images/front_cover.webm" type="video/webm">
-                                    <source src="images/front_cover.mp4" type="video/mp4">
-                                    Your browser does not support HTML5 video.
-                                </video>
-                            </figure>
-                        </div>
+                <div class="row no-gutters">
 
-                        <div class="bb-item">
-                            <figure class="book-cover" id="book-cover-back">
-                                <img src="images/back_cover.svg" alt="back_cover"/>
-                            </figure>
-                        </div>
-                    </div><!-- bb-bookblock -->
+                    <div class="col-8 offset-2 my-auto" id="flipbook">
+                        <div id="bb-bookblock" class="bb-bookblock">
 
-                    <div id="nav-wrapper" class="mx-auto">
-                        <nav>
-                            <img id="bb-nav-first" src="images/first.svg" alt="first" />
-                            <img id="bb-nav-prev" src="images/prev.svg" alt="prev" />
-                            <div id="page-counter">
-                                <input id="current-page" type="text" value="0">
-                                <button type="button" id="total-count" disabled>_</button>
+                            <div class="bb-item">
+                                <figure class="book-cover" id="book-cover-front">
+                                    <video class="mx-auto d-block" autoplay muted loop playsinline>
+                                        <source src="images/front_cover.webm" type="video/webm">
+                                        <source src="images/front_cover.mp4" type="video/mp4">
+                                        Your browser does not support HTML5 video.
+                                    </video>
+                                </figure>
                             </div>
-                            <img id="bb-nav-next" src="images/next.svg" alt="next" />
-                            <img id="bb-nav-last" src="images/last.svg" alt="last" />
-                        </nav>
-                    </div><!-- nav-wrapper -->
-                    
-                </div><!-- flipbook -->
+
+                            <div class="bb-item">
+                                <figure class="book-cover" id="book-cover-back">
+                                    <img src="images/back_cover.svg" alt="back_cover"/>
+                                </figure>
+                            </div>
+                        </div><!-- bb-bookblock -->
+
+                        <div id="nav-wrapper" class="mx-auto">
+                            <nav>
+                                <img id="bb-nav-first" src="images/first.svg" alt="first" />
+                                <img id="bb-nav-prev" src="images/prev.svg" alt="prev" />
+                                <div id="page-counter">
+                                    <input id="current-page" type="text" value="0">
+                                    <button type="button" id="total-count" disabled>_</button>
+                                </div>
+                                <img id="bb-nav-next" src="images/next.svg" alt="next" />
+                                <img id="bb-nav-last" src="images/last.svg" alt="last" />
+                            </nav>
+                            
+                        </div><!-- nav-wrapper -->
+                    </div><!-- flipbook -->
+
+                    <address class="col-1">
+                        <a href="https://github.com/piyush-jaiswal" target="_blank">
+                            <img src="images/github.svg" alt="github">
+                        </a>
+                        <a href="https://in.linkedin.com/in/piyush-jaiswal-807b6110b" target="_blank">
+                            <img src="images/linkedin.svg" alt="linkedin">
+                        </a>
+                        <a href="https://piyushjaiswal.wixsite.com/piyushj" target="_blank">
+                            <img src="images/info.svg" alt="personal-website">
+                        </a>
+                        <a href="mailto:piyushjf@gmail.com" target="_blank">
+                            <img src="images/mailto.svg" alt="mail">
+                        </a>
+                    </address>
+
+                </div><!-- row -->
             </div><!-- flipbook-wrapper -->
         </div><!-- row -->
     </main><!-- container-fluid -->
