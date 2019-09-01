@@ -1,10 +1,11 @@
 body {
     font-family: 'Lato', Calibri, Arial, sans-serif;
+    background: #F0F0F0;
 }
 
-body,
-.book-cover {
-    background: #E6E6FA;
+#flipbook-wrapper {
+    background-image: url(../images/background.svg);
+    padding-top: 14%;
 }
 
 html, 
@@ -29,7 +30,11 @@ figure img {
 }
 
 figure {
-    background: #fff;
+    background-image: url(../images/figure_bg.svg);
+}
+
+.book-cover {
+    background: none;
 }
 
 #nav-wrapper {
