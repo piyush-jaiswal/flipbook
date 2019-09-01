@@ -5,6 +5,7 @@ body {
 
 #flipbook-wrapper {
     background-image: url(../images/background.svg);
+    background-size: 100% 100%;
     padding-top: 14%;
 }
 
