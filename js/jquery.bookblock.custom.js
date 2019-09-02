@@ -269,8 +269,8 @@
 				$o_right = $s_right.find('div.bb-overlay'),
 				speed = this.end ? 400 : this.options.speed;
 
-				this.$items.hide();
 				this.$el.prepend($s_left, $s_middle, $s_right);
+				this.$items.hide();
 
 			$s_middle.css({
 				transitionDuration: speed + 'ms',
