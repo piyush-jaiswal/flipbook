@@ -1,87 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Flipbook</title>
+    <title>Dijkstra as a Comic</title>
+    <meta name="description" content="The famous algorithm for finding shortest paths - Dijkstra's algorithm - in the form of a comic">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/bookblock.css" />
+    <link rel="stylesheet" href="css/bookblock.custom.css" />
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row" id="flipbook-row">
-            <div class="col-8 mx-auto" id="flipbook">
-                <div id="bb-bookblock" class="bb-bookblock">
+    <main class="container-fluid px-0">
+        <div class="row no-gutters">
+            <div class="col-12 mx-auto my-auto" id="flipbook-wrapper">
+                <div class="row no-gutters">
 
-                    <div class="bb-item">
-                        <figure class="book-cover" id="book-cover-front">
-                            <img class="mx-auto d-block" src="images/front_cover_fast.gif" alt="image01"/>
-                        </figure>
-                    </div>
+                    <div class="col-8 offset-2 my-auto" id="flipbook">
+                        <div id="bb-bookblock" class="bb-bookblock">
 
-                    <div class="bb-item">
-                        <figure class="d-flex align-items-center">
-                            <img class="mx-auto d-block" src="images/first-scene.gif" alt="image02"/>
-                        </figure>
-                    </div>
+                            <div class="bb-item">
+                                <figure class="book-cover" id="book-cover-front">
+                                    <video class="mx-auto d-block" autoplay muted loop playsinline>
+                                        <source src="images/front_cover.webm" type="video/webm">
+                                        <source src="images/front_cover.mp4" type="video/mp4">
+                                        Your browser does not support HTML5 video.
+                                    </video>
+                                </figure>
+                            </div>
 
-                    <div class="bb-item">
-                        <figure class="d-flex align-items-center">
-                            <img class="mx-auto d-block" src="https://media0.giphy.com/media/eKPIKGY3SNvHvuLgRW/giphy.gif?cid=790b76115d1b36b932573768450d9f39&rid=giphy.gif" alt="image03"/>
-                        </figure>
-                    </div>
+                            <div class="bb-item">
+                                <figure class="book-cover" id="book-cover-back">
+                                    <img src="images/back_cover.svg" alt="back_cover"/>
+                                </figure>
+                            </div>
+                        </div><!-- bb-bookblock -->
 
-                    <div class="bb-item">
-                        <figure class="d-flex align-items-center">
-                            <img class="mx-auto d-block" src="https://media2.giphy.com/media/ayQ99hp01HFN6/giphy.gif?cid=790b76115d1b43d7794f6e38367593af&rid=giphy.gif" alt="image04"/>
-                        </figure>
-                    </div>
+                        <div id="nav-wrapper" class="mx-auto">
+                            <nav>
+                                <img id="bb-nav-first" src="images/first.svg" alt="first" />
+                                <img id="bb-nav-prev" src="images/prev.svg" alt="prev" />
+                                <div id="page-counter">
+                                    <input id="current-page" type="text" value="0">
+                                    <button type="button" id="total-count" disabled>_</button>
+                                </div>
+                                <img id="bb-nav-next" src="images/next.svg" alt="next" />
+                                <img id="bb-nav-last" src="images/last.svg" alt="last" />
+                            </nav>
+                            
+                        </div><!-- nav-wrapper -->
+                    </div><!-- flipbook -->
 
-                    <div class="bb-item">
-                        <figure class="book-cover" id="book-cover-back">
-                            <img src="images/dijkstra_back_cover2.png" alt="image05"/>
-                        </figure>
-                    </div>
+                    <address class="col-1">
+                        <a href="https://github.com/piyush-jaiswal" target="_blank">
+                            <img src="images/github.svg" alt="github">
+                        </a>
+                        <a href="https://in.linkedin.com/in/piyush-jaiswal-807b6110b" target="_blank">
+                            <img src="images/linkedin.svg" alt="linkedin">
+                        </a>
+                        <a href="https://piyushjaiswal.wixsite.com/piyushj" target="_blank">
+                            <img src="images/info.svg" alt="personal-website">
+                        </a>
+                        <a href="mailto:piyushjf@gmail.com" target="_blank">
+                            <img src="images/mailto.svg" alt="mail">
+                        </a>
+                    </address>
 
-                </div><!-- bb-bookblock -->
-            </div><!-- flipbook -->
-        </div><!-- flipbook row -->
-    </div><!-- container-fluid -->
-
-    <nav class="navbar navbar-expand justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a id="bb-nav-first" href="#" class="btn btn-success btn">
-                    <span class="oi oi-media-step-backward"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="bb-nav-prev" href="#" class="btn btn-success btn">
-                    <span class="oi oi-caret-left"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="bb-nav-next" href="#" class="btn btn-success btn">
-                    <span class="oi oi-caret-right"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="bb-nav-last" href="#" class="btn btn-success btn">
-                    <span class="oi oi-media-step-forward"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                </div><!-- row -->
+            </div><!-- flipbook-wrapper -->
+        </div><!-- row -->
+    </main><!-- container-fluid -->
 
     <script src="js/modernizr.custom.js"></script>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/jquerypp.custom.js"></script>
-    <script src="js/jquery.bookblock.js"></script>
+    <script src="js/jquery.bookblock.custom.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/main.js"></script>
 </body>
 
