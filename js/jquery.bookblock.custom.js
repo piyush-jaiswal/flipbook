@@ -404,6 +404,16 @@
 					</div>
 					*/
 					$side = $('<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + (dir === 'next' ? this.$current.html() : this.$nextItem.html()) + '</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + (dir === 'next' ? this.$nextItem.html() : this.$current.html()) + '</div></div><div class="bb-flipoverlay"></div></div></div></div>').css('z-index', 103);
+					if (dir === 'next') {
+						$side.children('.bb-back').css('backface-visibility', 'visible');
+						$side.children('.bb-back').children().css('backface-visibility', 'visible');
+						$side.children('.bb-front').css('z-index', 104);
+					}
+					else {
+						$side.children('.bb-front').css('backface-visibility', 'visible');
+						$side.children('.bb-front').children().css('backface-visibility', 'visible');
+						$side.children('.bb-back').css('z-index', 104);
+					}
 					break;
 				case 'right':
 					/*
