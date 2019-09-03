@@ -5,8 +5,8 @@
 	position: relative;
 	z-index: 100;
 
-	-webkit-perspective: 120em;
-	perspective: 120em;
+	-webkit-perspective: 110vw;
+	perspective: 110vw;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
