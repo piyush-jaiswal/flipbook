@@ -8,4 +8,6 @@ Features added:
  - Responsive - Flipbook resizes and maintains aspect ratio
  - Page counter - Ability to track count and jump to specific pages
  
- BookBlock options and other parameters can be set in ```js/config.js```
+ BookBlock options and other parameters can be set in ```js/config.js```.
+ 
+ [Demo](https://piyush-jaiswal.github.io/dijkstra-as-a-comic/)
