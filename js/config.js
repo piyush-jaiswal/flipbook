@@ -1,8 +1,8 @@
 CONFIG = {
-    TOTAL_PAGES: 259,
+    TOTAL_PAGES: 12,
     IMAGE_PATH: 'images/',
-    ALIVE_PAGES: 9,
-    IMAGE_EXTENSION: '.svg'
+    ALIVE_PAGES: 5,
+    IMAGE_EXTENSION: '.jpg'
 }
 
 BB_CONFIG = {

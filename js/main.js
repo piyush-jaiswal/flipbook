@@ -62,32 +62,8 @@ var Page = (function () {
                                 $item.find('span.spinner-border').hide();
                             }
                         }
-            
-                        // play video again on navigation to front cover
-                        if (page === 0) {
-                            let $video = $('#book-cover-front > video');
-                            let video = $video[0];
-                            $video.attr('autoplay', 'true');
-                            video.play();
-                        }
                     }
                 })(),
-                onBeforeFlip: function (old, page) {
-                    if (page > old && old === 0) {
-                        let $video = $('#book-cover-front > video');
-                        let video = $video[0];
-                        video.pause();
-                        let frameSrc = getCurrentFrame(video);
-                        $video.attr('poster', frameSrc);
-                        $video.removeAttr('autoplay');
-                    }
-                    else if (page < old && page === 0) {
-                        let $video = $('#book-cover-front > video');
-                        let video = $video[0];
-                        video.currentTime = 0;
-                        $video.removeAttr('poster');
-                    }
-                }
             }));
             initEvents(bookblock);
         },
@@ -223,12 +199,3 @@ $(function() {
     document.getElementById('flipbook').focus();
     Page.init();
 })
-
-function getCurrentFrame(video) {
-    var canvas = document.createElement('canvas');
-    canvas.height = video.videoHeight;
-    canvas.width = video.videoWidth;
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL('image/jpeg');
-}

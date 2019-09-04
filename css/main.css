@@ -3,16 +3,6 @@ body {
     background: #F0F0F0;
 }
 
-#flipbook-wrapper {
-    background-image: url(../images/background.svg);
-    background-size: 100% 100%;
-    padding-top: 14%;
-}
-
-#flipbook {
-    padding-bottom: 2%;
-}
-
 html,
 body, 
 .container-fluid, 
@@ -35,7 +25,7 @@ figure img {
 }
 
 figure {
-    background-image: url(../images/figure_bg.svg);
+    background-color: #fff;
 }
 
 .book-cover {
